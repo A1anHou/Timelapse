@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="AppTheme.Base"></style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+
+
+        <!--colorPrimaryDark对应状态栏的颜色-->
+        <item name="colorPrimaryDark">@color/widowColor</item>
+
+        <!--窗口的颜色-->
+        <item name="colorPrimary">@color/widowColor</item>
+
     </style>
 
     <style name="AppTheme.NoActionBarWithBackGround">
@@ -13,6 +19,22 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>//设置全屏
         <item name="android:windowBackground">@drawable/logo</item>//设置背景
+    </style>
+
+    <!--Status bar color-->
+    <color name="statusColor">#ff0000</color>
+    <!-- toolBar color -->
+    <color name="toolBarColor">#0000ff</color>
+    <!--EditText,RadioButton,CheckBox color-->
+    <color name="editColor">#FD87A9</color>
+    <!--Window color-->
+    <color name="widowColor">#ffffff</color>
+    <style name="dateStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

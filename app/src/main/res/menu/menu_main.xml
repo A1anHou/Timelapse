@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wimt.icebreaker.MainActivity">
+
+
+
+    <item android:id="@+id/tenmin"
+
+        android:title="停留10分钟以上"
+        app:showAsAction="never"
+        />
+    <item android:id="@+id/thirtymin"
+
+    android:title="停留30分钟以上"
+    app:showAsAction="never"
+    />
+    <item android:id="@+id/sixtymin"
+
+        android:title="停留1小时以上"
+        app:showAsAction="never"
+        />
+</menu>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+    <ImageView
+        android:layout_width="60px"
+        android:layout_height="80px"
+        android:id="@+id/show_list"
+        android:src="@drawable/list"
+        android:layout_alignParentLeft="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="2018-4-3"
+        android:id="@+id/app_graphic_date"
+        android:textColor="@color/select_date"
+        android:layout_centerHorizontal="true"
+        />
+    <ImageView
+        android:id="@+id/show_map"
+        android:layout_width="60px"
+        android:layout_height="80px"
+        android:src="@drawable/map"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230px"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220px"
+        android:orientation="horizontal">
+    <ImageView
+        android:layout_width="80px"
+        android:layout_height="220px"
+        android:paddingLeft="10px"
+        android:src="@drawable/point"/>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="220px"
+        android:orientation="vertical"
+        android:paddingTop="50px"
+        android:paddingLeft="20px">
+        <TextView
+            android:id="@+id/address_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/address_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5px"
+            android:textSize="13dp"
+            android:alpha="0.5"/>
+    </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/divider_color"/>
+</LinearLayout>

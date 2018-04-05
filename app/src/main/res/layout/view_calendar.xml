@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout  
+        android:layout_width="match_parent"  
+        android:layout_height="50dp"  
+        android:background="#ffffff"
+         >  
+  
+<!--        <ImageButton
+            android:id="@+id/btnPreMonth"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_centerVertical="true"  
+            android:layout_marginRight="33dip"  
+            android:layout_toLeftOf="@+id/tvCurrentMonth"  
+            android:background="@drawable/left" /> -->
+        <TextView
+            android:id="@+id/btnPreMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:textSize="22sp"
+            android:text="上一月"/>
+        <TextView
+            android:id="@+id/btnNextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:textSize="22sp"
+            android:text="下一月"/>
+<!--        <ImageButton
+            android:id="@+id/btnNextMonth"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_centerVertical="true"  
+            android:layout_marginLeft="33dip"  
+            android:layout_toRightOf="@+id/tvCurrentMonth"  
+            android:background="@drawable/right" />  -->
+  
+
+  
+    </RelativeLayout>  
+  
+    <LinearLayout  
+        android:layout_width="match_parent"  
+        android:layout_height="wrap_content"  
+        android:paddingTop="15dp"   
+        android:paddingBottom="15dp"
+        android:orientation="vertical"  
+        android:background="#f6f1ea"  
+         >  
+  
+        <TableLayout  
+            android:layout_width="match_parent"  
+            android:layout_height="20dip"
+             >
+  
+            <TableRow>  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/sunday"  
+                    android:textColor="@color/canlendar_text_color" />  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/monday"  
+                    android:textColor="@color/canlendar_text_color" />  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/thesday"  
+                    android:textColor="@color/canlendar_text_color" />  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/wednesday"  
+                    android:textColor="@color/canlendar_text_color" />  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/thursday"  
+                    android:textColor="@color/canlendar_text_color" />  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/friday"  
+                    android:textColor="@color/canlendar_text_color" />  
+  
+                <TextView  
+                    style="@style/dateStyle"  
+                    android:text="@string/saturday"  
+                    android:textColor="@color/canlendar_text_color" />  
+            </TableRow>  
+        </TableLayout> 
+	</LinearLayout>
+	
+    <LinearLayout  
+        android:layout_width="match_parent"  
+        android:layout_height="0dp"  
+        android:orientation="vertical"   
+        android:layout_weight="1">  
+  
+        <android.support.v4.view.ViewPager  
+            android:id="@+id/vp_calendar"  
+            android:layout_width="match_parent"  
+            android:layout_height="wrap_content"  
+            android:layout_gravity="center"  
+            android:background="@color/white" >  
+        </android.support.v4.view.ViewPager>  
+    </LinearLayout>
+</LinearLayout>

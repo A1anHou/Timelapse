@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+
+    android:id="@+id/actionbar"
+    >
+
+    <ImageView
+        android:layout_width="60px"
+        android:layout_height="80px"
+        android:id="@+id/back"
+        android:src="@drawable/back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBaseline="@id/footprint"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="2018-4-3"
+        android:id="@+id/select_date"
+        android:textColor="@color/select_date"
+        android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/footprint"
+        android:layout_width="60px"
+        android:layout_height="80px"
+        android:src="@drawable/footprint"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

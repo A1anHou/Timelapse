@@ -12,28 +12,85 @@
         android:layout_height="0dp"
         android:alpha="0.8"
         android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingBottom="50dp"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="使用时长"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/app_time_txt"
-            android:text="使用时长：20分钟\t"
-            android:textSize="45dp"/>
-        <TextView
+            android:text="20分钟"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="230px"
+            android:background="#000000" />
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/app_count_txt"
-            android:text="使用个数：5"
-            android:textSize="45dp"/>
-        <TextView
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="使用个数"
+                android:textSize="25dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/app_count_txt"
+                android:text="5"
+                android:textSize="25dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="230px"
+            android:background="#000000" />
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/unlock_count_txt"
-            android:text="解锁次数：10"
-            android:textSize="45dp"/>
+            android:paddingLeft="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="解锁次数"
+                android:textSize="25dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/unlock_count_txt"
+                android:text="10"
+                android:textSize="25dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
