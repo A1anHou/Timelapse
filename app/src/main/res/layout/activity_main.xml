@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.icebreaker.timelapse.MainActivity">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/app_pieChart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alpha="0.8"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_time_txt"
+            android:text="使用时长：20分钟\t"
+            android:textSize="45dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_count_txt"
+            android:text="使用个数：5"
+            android:textSize="45dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/unlock_count_txt"
+            android:text="解锁次数：10"
+            android:textSize="45dp"/>
+    </LinearLayout>
+
+</LinearLayout>
