@@ -34,8 +34,8 @@ public class PieChartHelper {
         pieChart.setExtraOffsets(5, 10, 5, 5);
 
         pieChart.setDragDecelerationFrictionCoef(0.95f);
-        //设置中间文件
-        pieChart.setCenterText(generateCenterSpannableText());
+        //设置中间文字
+        //pieChart.setCenterText(generateCenterSpannableText());
         pieChart.setCenterTextColor(Color.BLACK);
         pieChart.setCenterTextColor(Color.BLACK);
 

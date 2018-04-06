@@ -5,6 +5,7 @@ import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,20 +35,23 @@ public class AppInfoHelper {
     }
 
     //获取应用信息
-    public List<AppInfo> getInformation(Calendar beginCal, int state){
+    public List<AppInfo> getInformation(Calendar beginCal,Context context){
         Calendar endCal = Calendar.getInstance();
         if(isSameDay(beginCal,endCal)){//查询今日
             //什么都不用做
+            //Toast.makeText(context,beginCal.get(Calendar.DAY_OF_MONTH)+" ",Toast.LENGTH_SHORT).show();
         }else{//查询指定日期
+            //Toast.makeText(context,beginCal.get(Calendar.DAY_OF_MONTH)+" ",Toast.LENGTH_SHORT).show();
             endCal.set(Calendar.YEAR,beginCal.get(Calendar.YEAR));
             endCal.set(Calendar.MONTH,beginCal.get(Calendar.MONTH));
             endCal.set(Calendar.DAY_OF_MONTH,beginCal.get(Calendar.DAY_OF_MONTH));
             endCal.set(Calendar.HOUR_OF_DAY,23);
             endCal.set(Calendar.MINUTE,59);
             endCal.set(Calendar.SECOND,59);
+            //Toast.makeText(context,endCal.get(Calendar.HOUR_OF_DAY)+" ",Toast.LENGTH_SHORT).show();
         }
         UsageStatsManager manager=(UsageStatsManager)context.getApplicationContext().getSystemService(context.USAGE_STATS_SERVICE);
-        List<UsageStats> stats=manager.queryUsageStats(UsageStatsManager.INTERVAL_WEEKLY,beginCal.getTimeInMillis(),endCal.getTimeInMillis());
+        List<UsageStats> stats=manager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY,beginCal.getTimeInMillis(),endCal.getTimeInMillis());
         List<AppInfo> appInfoList = new ArrayList<AppInfo>();
         for(UsageStats us:stats){
             try {
