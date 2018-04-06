@@ -6,9 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
-
-import com.icebreaker.timelapse.LocationService;
 
 public class AlarmUtils {
     public static void setAlarmServiceTime(Context context, long timeInMillis, int time) {

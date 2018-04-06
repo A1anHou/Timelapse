@@ -72,6 +72,7 @@
         <!-- 启动一个定位服务 -->
 
         <service android:name=".LocationService" />
+        <service android:name=".AppService" />
 
         <activity
             android:name=".AddressActivity"
@@ -81,6 +82,8 @@
         <activity android:name=".MapActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".AppListActivity"
+        android:theme="@style/AppTheme" />
+        <activity android:name=".TestActivity"
             android:theme="@style/AppTheme" />
     </application>
 

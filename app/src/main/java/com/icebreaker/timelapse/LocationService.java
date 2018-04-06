@@ -1,17 +1,12 @@
 package com.icebreaker.timelapse;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.Message;
-import android.os.PowerManager;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -105,7 +100,7 @@ public class LocationService extends Service implements GeocodeSearch.OnGeocodeS
                                 Adress newOne  = new Adress();
 
                                     newOne.setAdress(mLastAdress);
-                                    Log.e("mLastAdress",mLastAdress);
+                                   // Log.e("mLastAdress",mLastAdress);
                                 newOne.setPoi(location.getPoiName());
                                 newOne.setTime(interval);
                                 newOne.setmYear(calendar.get(Calendar.YEAR));
@@ -114,7 +109,7 @@ public class LocationService extends Service implements GeocodeSearch.OnGeocodeS
                                 newOne.setmDay(calendar.get(Calendar.DAY_OF_MONTH));
                                 newOne.setLon(location.getLongitude());
                                 newOne.setLat(location.getLatitude());
-                                Log.e("NEWONE",newOne.toString());
+                               // Log.e("NEWONE",newOne.toString());
                                 mAdressList.addAdress(utils,newOne);
                                 mLastLocateTime = now;
                                 //发送广播

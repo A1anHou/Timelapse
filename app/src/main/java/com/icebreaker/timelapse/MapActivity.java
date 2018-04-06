@@ -8,9 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.location.Address;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -23,12 +21,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
@@ -40,9 +36,7 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
-import com.amap.api.maps2d.model.Text;
 import com.githang.statusbar.StatusBarCompat;
-import com.icebreaker.timelapse.CheckPermissionsActivity;
 import com.icebreaker.timelapse.util.CustomDate;
 import com.icebreaker.timelapse.util.Util;
 import com.icebreaker.timelapse.view.MyCalendar;
@@ -50,7 +44,6 @@ import com.icebreaker.timelapse.view.MyCalendar.OnDateBack;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 
 /**

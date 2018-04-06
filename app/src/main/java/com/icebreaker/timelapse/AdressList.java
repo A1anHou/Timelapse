@@ -2,9 +2,6 @@ package com.icebreaker.timelapse;
 
 import android.util.Log;
 
-import com.icebreaker.timelapse.Adress;
-import com.icebreaker.timelapse.SQLUtils;
-
 import java.util.ArrayList;
 
 /**

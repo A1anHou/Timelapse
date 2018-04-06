@@ -4,12 +4,9 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
-import com.icebreaker.timelapse.view.CalendarView;
 import com.icebreaker.timelapse.adapter.CalendarViewAdapter;
 import com.icebreaker.timelapse.util.CustomDate;
 import com.icebreaker.timelapse.util.DateUtil;
-
-import java.util.Date;
 
 
 public class MyCalendar implements CalendarView.OnCellClickListener{

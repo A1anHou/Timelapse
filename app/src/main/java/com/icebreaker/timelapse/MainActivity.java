@@ -22,14 +22,13 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.github.mikephil.charting.charts.PieChart;
 import com.icebreaker.timelapse.util.CustomDate;
 import com.icebreaker.timelapse.util.Util;
 import com.icebreaker.timelapse.view.MyCalendar;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,7 +53,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent(MainActivity.this,UnlockService.class));
+
+        //检测用户是否对本app开启了“Apps with usage access”权限
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (!hasPermission()) {
+                startActivityForResult(
+                        new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
+                        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
+            }
+        }
+
+        startService(new Intent(MainActivity.this,AppService.class));
         AlarmUtils.setAlarmServiceTime(this, System.currentTimeMillis(), 5 * 1000);
         beginCal = Calendar.getInstance();
         initApp(beginCal);
@@ -71,18 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter itFilter = new IntentFilter();
         itFilter.addAction("com.icebreaker.timelapse.SCREEN_UNLOCK");
         registerReceiver(updateViewReceiver, itFilter);
-
     }
     //初始化界面
     private void initApp(Calendar beginCal){
-        //检测用户是否对本app开启了“Apps with usage access”权限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (!hasPermission()) {
-                startActivityForResult(
-                        new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
-                        MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
-            }
-        }
+
 
         //设置起始时间为0时0分0秒
         beginCal.set(Calendar.HOUR_OF_DAY,0);
@@ -90,15 +91,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         beginCal.set(Calendar.SECOND,0);
         appInfoHelper = new AppInfoHelper(this);
         List<AppInfo> appInfos = appInfoHelper.getInformation(beginCal,MainActivity.this);
-        PieChart pieChart = findViewById(R.id.app_pieChart);
-        pieChartHelper = new PieChartHelper(pieChart,appInfos);
-        obtainDataFromDataBase(beginCal);
         TextView totalUseTimeTxt = findViewById(R.id.app_time_txt);
         totalUseTimeTxt.setText(formatSecond(appInfoHelper.getTotalUseTime(appInfos)));
         TextView totalUseCountTxt = findViewById(R.id.app_count_txt);
         totalUseCountTxt.setText(String.valueOf(appInfoHelper.getTotalUseCount(appInfos)));
         TextView unlockCountTxt = findViewById(R.id.unlock_count_txt);
         unlockCountTxt.setText(String.valueOf(unlockCount));
+        if(appInfos.size()==0){
+            Toast.makeText(this,"暂无数据",Toast.LENGTH_SHORT).show();
+            AppInfo inf1 = new AppInfo();
+            inf1.setAppName("暂无数据");
+            inf1.setForegroundTime(1);
+            AppInfo inf2 = new AppInfo();
+            inf2.setAppName("快去记录吧");
+            inf2.setForegroundTime(1);
+            appInfos.add(inf1);
+            appInfos.add(inf2);
+        }
+        PieChart pieChart = findViewById(R.id.app_pieChart);
+        pieChartHelper = new PieChartHelper(pieChart,appInfos);
+        obtainDataFromDataBase(beginCal);
+
     }
 
 
@@ -181,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(
                         new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),
                         MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS);
+            }else{
+                initApp(Calendar.getInstance());
             }
         }
     }
@@ -219,8 +234,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (i == 1) {
                 myDate = date;
                 beginCal.set(Calendar.YEAR,date.year);
-                beginCal.set(Calendar.MONTH,date.month);
+                beginCal.set(Calendar.MONTH,date.month-1);
                 beginCal.set(Calendar.DAY_OF_MONTH,date.day);
+                //Toast.makeText(MainActivity.this,"123",Toast.LENGTH_SHORT).show();
                 initApp(beginCal);
                 app_date.setText(date.year + "-" + date.month + "-" + date.day);
 
@@ -273,6 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onDestroy(){
         super.onDestroy();
+        unregisterReceiver(updateViewReceiver);
         if(myDBOpenHelper!=null){
             myDBOpenHelper.close();
         }

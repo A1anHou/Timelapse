@@ -9,11 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-
 import android.widget.RelativeLayout;
 import com.githang.statusbar.StatusBarCompat;
-
-import com.icebreaker.timelapse.R;
 import com.icebreaker.timelapse.view.MyAdapter;
 
 import java.util.ArrayList;

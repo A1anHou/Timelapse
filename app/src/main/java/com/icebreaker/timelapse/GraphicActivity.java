@@ -3,19 +3,18 @@ package com.icebreaker.timelapse;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.github.mikephil.charting.animation.Easing;
@@ -201,7 +200,6 @@ public class GraphicActivity extends AppCompatActivity implements View.OnClickLi
             // TODO Auto-generated method stub
             if (i == 1) {
                 myDate = date;
-
                 graphic_date.setText(date.year + "-" + date.month + "-" + date.day);
                 mAddress = utils.getOneDayHistory(utils.getReadableDatabase(),date.year,date.month,date.day);
                 initChart(mAddress);

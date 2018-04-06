@@ -1,13 +1,10 @@
 package com.icebreaker.timelapse;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +15,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githang.statusbar.StatusBarCompat;
 import com.icebreaker.timelapse.util.CustomDate;
@@ -61,6 +59,9 @@ public class AppListActivity extends AppCompatActivity implements View.OnClickLi
         beginCal.set(Calendar.SECOND,0);
         appInfoHelper = new AppInfoHelper(this);
         List<AppInfo> appInfos = appInfoHelper.getInformation(beginCal,AppListActivity.this);
+        if(appInfos.size()==0){
+            Toast.makeText(AppListActivity.this,"暂无数据",Toast.LENGTH_SHORT).show();
+        }
         Collections.sort(appInfos,new SortByUseTime());
         //初始化ListView
         appList = findViewById(R.id.app_list);
@@ -151,7 +152,7 @@ public class AppListActivity extends AppCompatActivity implements View.OnClickLi
             if (i == 1) {
                 myDate = date;
                 beginCal.set(Calendar.YEAR,date.year);
-                beginCal.set(Calendar.MONTH,date.month);
+                beginCal.set(Calendar.MONTH,date.month-1);
                 beginCal.set(Calendar.DAY_OF_MONTH,date.day);
                 initList(beginCal);
                 list_date.setText(date.year + "-" + date.month + "-" + date.day);

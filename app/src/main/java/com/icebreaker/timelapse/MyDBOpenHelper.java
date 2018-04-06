@@ -18,6 +18,7 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //创建应用黑名单表
         sqLiteDatabase.execSQL("CREATE TABLE unlockCount(date VARCHAR(50) PRIMARY KEY ,count INTEGER)");
+        sqLiteDatabase.execSQL("CREATE TABLE appUsageStats(id INTEGER PRIMARY KEY AUTOINCREMENT,date VARCHAR(50) ,time BIGINT,package VARCHAR(100),count INTEGER)");
     }
 
     @Override
