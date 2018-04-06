@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
@@ -102,10 +103,10 @@ public class MapActivity extends AppCompatActivity
         initView(type); // 初始化普通控件
 
         //注册广播
-        mReceiver=new MyReceiver();
+    /*    mReceiver=new MyReceiver();
         IntentFilter filter=new IntentFilter();
-        filter.addAction("com.wimt.icebreaker");
-        registerReceiver(mReceiver, filter);
+        filter.addAction("com.icebreaker.timelapse");
+        registerReceiver(mReceiver, filter);*/
 
     }
 
@@ -482,19 +483,20 @@ public class MapActivity extends AppCompatActivity
      * author wangbin
      * Created on 2018/4/4 15:54 
     */
-    private class MyReceiver extends BroadcastReceiver{
+  /*  private class MyReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
 
             Bundle bundle = intent.getExtras();
-
+            String data = bundle.getString("data");
+            Toast.makeText(MapActivity.this,data,Toast.LENGTH_SHORT).show();
             ArrayList<Adress> mHistory = utils.getAllHistory(utils.getReadableDatabase());
 
             if(mHistory != null){
               // drawMarkers(mHistory);
             }
         }
-    }
+    }*/
 
 
     @Override
@@ -505,6 +507,10 @@ public class MapActivity extends AppCompatActivity
 
         PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_NO_CREATE);
         am.cancel(sender);*/
+if(mReceiver != null){
+    unregisterReceiver(mReceiver);
+}
+
         if(utils != null){
             utils.close();
         }

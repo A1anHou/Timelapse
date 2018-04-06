@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.githang.statusbar.StatusBarCompat;
 import com.icebreaker.timelapse.view.MyAdapter;
 
@@ -21,6 +23,7 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
     private SQLUtils mSqlUtils;
     private static final  String DB_NAME = "wimt.db3";
     private ExpandableListView mListView;
+    private TextView error_tip;
     private MyAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,11 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
     */
     private void init(){
 
+
         mSqlUtils = new SQLUtils(getApplicationContext(),DB_NAME,1);
         mAllAddresses = mSqlUtils.getAllHistory(mSqlUtils.getReadableDatabase());
-        if(mAllAddresses != null){
+        error_tip = (TextView)findViewById(R.id.errorz_tip);
+        if(mAllAddresses != null  && mAllAddresses.size()>0){
             ArrayList<String> dateList = new ArrayList<String>();
             for(Adress address: mAllAddresses){
                 String date = address.getmYear()+"."+address.getmMonth()+"."+address.getmDay();
@@ -77,6 +82,9 @@ public class AddressActivity extends AppCompatActivity implements View.OnClickLi
             }
             mListView.setOnGroupClickListener(this);
             mListView.setOnChildClickListener(this);
+        }else{
+            error_tip.setVisibility(View.VISIBLE);
+            error_tip.setText("暂无足迹点!");
         }
 
     }

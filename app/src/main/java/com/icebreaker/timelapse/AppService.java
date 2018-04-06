@@ -1,6 +1,7 @@
 package com.icebreaker.timelapse;
 
 import android.app.AppOpsManager;
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
@@ -59,6 +60,7 @@ public class AppService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        /*
         try {
             while(!hasPermission()){
                 initDataBase();
@@ -68,12 +70,13 @@ public class AppService extends Service {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        */
         listenUnlock();
         myThread = new MyThread(this);
         myThread.start();
         Log.i(TAG, "Service is start.");
     }
-
+/*
     private void initDataBase() throws NoSuchFieldException, IllegalAccessException {
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(AppService.this,"wimt.db",null,1);
         SQLiteDatabase db = myDBOpenHelper.getWritableDatabase();
@@ -88,14 +91,11 @@ public class AppService extends Service {
             beginCal.set(Calendar.SECOND,0);
             UsageStatsManager manager=(UsageStatsManager)this.getApplicationContext().getSystemService(this.USAGE_STATS_SERVICE);
             List<UsageStats> stats=manager.queryUsageStats(UsageStatsManager.INTERVAL_YEARLY,now.getTimeInMillis()-6*1000,now.getTimeInMillis());
-            if(stats.size() == 0){
-                Log.e(TAG,"123");
-            }
             for(UsageStats us:stats){
                 long appTime = us.getTotalTimeInForeground()/1000;
                 String appPackage = us.getPackageName();
                 int appCount = us.getClass().getDeclaredField("mLaunchCount").getInt(us);
-                Log.e(TAG,appPackage+" "+appCount);
+                //Log.e(TAG,appPackage+" "+appCount);
                 if(appCount>0){
                     String sqlInsert = "INSERT INTO  appUsageStats(date,time,package,count) VALUES(?,?,?,?)";
                     db.execSQL(sqlInsert,new String[]{date,String.valueOf(appTime),appPackage,String.valueOf(appCount)});
@@ -108,7 +108,7 @@ public class AppService extends Service {
         myDBOpenHelper.close();
 
     }
-
+*/
     private void listenUnlock() {
         //屏幕解锁计数
         screenUnlockReceiver = new BroadcastReceiver() {
@@ -125,6 +125,7 @@ public class AppService extends Service {
         registerReceiver(screenUnlockReceiver, itFilter);
     }
 
+    /*
     //检测用户是否对本app开启了“Apps with usage access”权限
     private boolean hasPermission() {
         AppOpsManager appOps = (AppOpsManager)
@@ -136,6 +137,7 @@ public class AppService extends Service {
         }
         return mode == AppOpsManager.MODE_ALLOWED;
     }
+    */
     private void updateUnlockCount(){
         //数据库操作
         MyDBOpenHelper myDBOpenHelper = new MyDBOpenHelper(AppService.this,"wimt.db",null,1);
@@ -163,7 +165,8 @@ public class AppService extends Service {
     private static class MyThread extends Thread {
         private Context context;
         private boolean isRun = true;
-//        private UsageStats currentApp = null;
+        //private UsageStats currentApp = null;
+        private String currentApp = "";
         private long currentRuntime = 0;
         private MyThread(Context context) {
             this.context = context;
@@ -175,8 +178,12 @@ public class AppService extends Service {
         public void run() {
             while (isRun) {
                 try {
-                    TimeUnit.SECONDS.sleep(5);
-                    getTopApp(context);
+                    TimeUnit.SECONDS.sleep(2);
+                    KeyguardManager mKeyguardManager = (KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
+                    if (!mKeyguardManager.inKeyguardRestrictedInputMode()) {
+                        getTopApp(context);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (NoSuchMethodException e) {
@@ -208,7 +215,7 @@ public class AppService extends Service {
                     //获取一天之内的应用数据
                     List<UsageStats> stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, beginCal.getTimeInMillis(), now.getTimeInMillis());
 
-                    UsageStats topApp = null;
+                    String topApp = "";
 
                     //取得最近运行的一个app，即当前运行的app
                     if ((stats != null) && (!stats.isEmpty())) {
@@ -218,44 +225,42 @@ public class AppService extends Service {
                                 j = i;
                             }
                         }
-                        topApp = stats.get(j);
+                        topApp = stats.get(j).getPackageName();
 
                     }
                     Log.i(TAG, "top running app is : "+topApp);
-//                    if(currentApp == null){
-//                        currentApp = topApp;
-//                    }
-//                    if(topApp.getPackageName().equals(currentApp.getPackageName())&&currentRuntime<60){
-//                        currentRuntime += 2;
-//                    }else{
-                        if(topApp!=null){
-                            updateAppUsageStats(topApp);
-                        }
-//                        currentApp = topApp;
-                    //}
+                    if(currentApp.equals("")){
+                        currentApp = topApp;
+                    }
+                    if(topApp.equals(currentApp)&&currentRuntime<60){
+                        currentRuntime += 2;
+                    }else{
+                        updateAppUsageStats(currentApp);
+                        currentRuntime = 0;
+                        currentApp = topApp;
+                    }
                 }
             }
         }
 
-        private void updateAppUsageStats(UsageStats topApp) throws NoSuchFieldException, IllegalAccessException {
-            String appPackage = topApp.getPackageName();
-            long appTime = topApp.getTotalTimeInForeground()/1000;
-            int appCount = topApp.getClass().getDeclaredField("mLaunchCount").getInt(topApp);
+        private void updateAppUsageStats(String appPackage) throws NoSuchFieldException, IllegalAccessException {
+
             MyDBOpenHelper dbOpenHelper = new MyDBOpenHelper(context,"wimt.db",null,1);
             SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
             Calendar todayCal = Calendar.getInstance();
             String date = String.valueOf(todayCal.get(Calendar.YEAR)+" "+(todayCal.get(Calendar.MONTH)+1)+" "+todayCal.get(Calendar.DAY_OF_MONTH));
-            String sqlQuery = "SELECT * FROM appUsageStats WHERE package = ? AND date = ?";
+            String sqlQuery = "SELECT time,count FROM appUsageStats WHERE package = ? AND date = ?";
             Cursor cursor = db.rawQuery(sqlQuery,new String[]{appPackage,date});
-            currentRuntime = 0;
             if(cursor.moveToFirst()){
+                long appTime = cursor.getLong(cursor.getColumnIndex("time"))+currentRuntime;
+                int appCount = cursor.getInt(cursor.getColumnIndex("count"))+1;
                 String sqlUpdate = "UPDATE appUsageStats SET time = ? , count = ? WHERE package = ? AND date = ?";
                 db.execSQL(sqlUpdate,new String[]{String.valueOf(appTime),String.valueOf(appCount),appPackage,date});
                 Log.v(TAG,"时间"+date+"\t名称"+appPackage+"\t时长"+appTime+"\t次数"+appCount);
             }else{
                 String sqlInsert = "INSERT INTO  appUsageStats(date,time,package,count) VALUES(?,?,?,?)";
-                db.execSQL(sqlInsert,new String[]{date,String.valueOf(appTime),appPackage,String.valueOf(appCount)});
-                Log.v(TAG,"时间"+date+"\t名称"+appPackage+"\t时长"+appTime+"\t次数"+appCount);
+                db.execSQL(sqlInsert,new String[]{date,"2",appPackage,"1"});
+                Log.v(TAG,"时间"+date+"\t名称"+appPackage+"\t时长"+2+"\t次数"+1);
             }
             cursor.close();
             db.close();

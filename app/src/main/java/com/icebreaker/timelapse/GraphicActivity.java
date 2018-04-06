@@ -117,7 +117,7 @@ public class GraphicActivity extends AppCompatActivity implements View.OnClickLi
         //模拟数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         if(addressList != null && addressList.size() >0){
-
+            //Toast.makeText(this,addressList.toString(),Toast.LENGTH_SHORT).show();
         for(Adress address: addressList){
             if(address.getTime()>=600){
 
@@ -127,6 +127,7 @@ public class GraphicActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
         }else{
+           // Toast.makeText(this,"今天暂无数据!",Toast.LENGTH_SHORT).show();
             entries.add(new PieEntry(30,"尚无记录"));
             entries.add(new PieEntry(30,"赶快去记录吧"));
         }

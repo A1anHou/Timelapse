@@ -22,7 +22,7 @@ public class SQLUtils extends SQLiteOpenHelper{
             "day int,"+
             "lon double,"+
             "lat double,"+
-            "primary key(year,day,address)"+")";
+            "primary key(year,month,day,address)"+")";
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -101,7 +101,7 @@ public class SQLUtils extends SQLiteOpenHelper{
     public  ArrayList<Adress> getOneDayHistory(SQLiteDatabase mDb,int year,int month,int day){
         ArrayList<Adress> mAdressList = new ArrayList<Adress>();
         try{
-            Cursor cursor = mDb.rawQuery("select * from path_history where year = "+year+" and month = "+month+" and day = "+day,null);
+            Cursor cursor = mDb.rawQuery("select * from path_history where year = "+year+" and month = "+month+" and day = "+day+" and time >"+600,null);
             if(cursor != null){
                 while(cursor.moveToNext()){
                     Adress adress = new Adress();

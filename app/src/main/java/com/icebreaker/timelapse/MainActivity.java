@@ -89,6 +89,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         beginCal.set(Calendar.HOUR_OF_DAY,0);
         beginCal.set(Calendar.MINUTE,0);
         beginCal.set(Calendar.SECOND,0);
+        obtainDataFromDataBase(beginCal);
         appInfoHelper = new AppInfoHelper(this);
         List<AppInfo> appInfos = appInfoHelper.getInformation(beginCal,MainActivity.this);
         TextView totalUseTimeTxt = findViewById(R.id.app_time_txt);
@@ -110,7 +111,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         }
         PieChart pieChart = findViewById(R.id.app_pieChart);
         pieChartHelper = new PieChartHelper(pieChart,appInfos);
-        obtainDataFromDataBase(beginCal);
+
 
     }
 

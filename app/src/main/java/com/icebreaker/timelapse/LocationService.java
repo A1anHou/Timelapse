@@ -97,9 +97,11 @@ public class LocationService extends Service implements GeocodeSearch.OnGeocodeS
                                }
 
                                 getAddrByLatLon(new LatLng(location.getLatitude(),location.getLongitude()));
+                               Log.e("AddressName",mLastAdress);
                                 Adress newOne  = new Adress();
 
                                     newOne.setAdress(mLastAdress);
+
                                    // Log.e("mLastAdress",mLastAdress);
                                 newOne.setPoi(location.getPoiName());
                                 newOne.setTime(interval);
@@ -112,11 +114,12 @@ public class LocationService extends Service implements GeocodeSearch.OnGeocodeS
                                // Log.e("NEWONE",newOne.toString());
                                 mAdressList.addAdress(utils,newOne);
                                 mLastLocateTime = now;
+                                Log.e("data",newOne.toString());
                                 //发送广播
-                                Intent intent=new Intent();
+                               /* Intent intent=new Intent();
                                 intent.putExtra("data", mAdressList.toString());
-                                intent.setAction("com.wimt.icebreaker");
-                                sendBroadcast(intent);
+                                intent.setAction("com.icebreaker.timelapse");
+                                sendBroadcast(intent);*/
                                 //定位完成的时间
                                 sb.append("定位时间: " + formatUTC(location.getTime(), "yyyy-MM-dd HH:mm:ss") + "\n");
 
@@ -154,7 +157,7 @@ public class LocationService extends Service implements GeocodeSearch.OnGeocodeS
         destroyLocation();
         initLocation();
         startLocation();
-       // Log.e("RUNNING","我运行了"+formatUTC(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"+"\n"));
+       Log.e("RUNNING","我运行了"+formatUTC(System.currentTimeMillis(),"yyyy-MM-dd HH:mm:ss"+"\n"));
         //因为setWindow只执行一次，所以要重新定义闹钟实现循环。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
            // Log.e("wsh", "onStartCommand KITKAT " + flags);
