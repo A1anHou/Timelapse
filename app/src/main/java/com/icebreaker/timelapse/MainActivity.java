@@ -32,7 +32,7 @@ import com.icebreaker.timelapse.view.MyCalendar;
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends CheckPermissionsActivity implements View.OnClickListener {
     private static final int MY_PERMISSIONS_REQUEST_PACKAGE_USAGE_STATS = 1101;
     private PieChartHelper pieChartHelper;
     private AppInfoHelper appInfoHelper;

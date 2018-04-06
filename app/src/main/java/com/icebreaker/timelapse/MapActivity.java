@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,7 +56,7 @@ import java.util.Calendar;
  * @文件名称: Hight_Accuracy_Activity.java
  * @类型名称: Hight_Accuracy_Activity
  */
-public class MapActivity extends CheckPermissionsActivity
+public class MapActivity extends AppCompatActivity
         implements
         OnClickListener,AMap.InfoWindowAdapter,AMap.OnMarkerClickListener,AMap.OnInfoWindowClickListener,AMap.OnMapTouchListener{
 
